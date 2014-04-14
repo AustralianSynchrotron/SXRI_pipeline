@@ -4,10 +4,6 @@ Created on 07/10/2013
 @author: Lenneke Jong
 '''
 from sxri_data_exchange.group import Group
-import h5py
-import numpy as np
-
-
 
 class ExchangeGroup(Group):
     '''
@@ -23,13 +19,12 @@ class ExchangeGroup(Group):
         super(ExchangeGroup, self).__init__(h5group, name)
         # self.h5group.require_dataset('data')
         
-    def set_title(self,title):
+    def set_title(self, title):
         '''set the "title" dataset, creating it if it doesn't exist. Dataset is a string representing the name of this exchange group'''
         if 'title' not in self.h5group.keys():
-            self.h5group.create_dataset('title',data=title)
+            self.create_string_dataset('title', data=title)
         else:
-            pass #renaming doesn't seem to work for now
-            #self.h5group['title']=title
+            self.h5group['title'].data = title
         
         
     
@@ -47,7 +42,7 @@ class RawExchange(ExchangeGroup):
     This should actually be a read-only group for us
     '''
     
-    def __init__(self, h5group, name="exchange", title='raw data',*args, **kwargs):
+    def __init__(self, h5group, name="exchange", title='raw data', *args, **kwargs):
         '''
         Constructor
         '''
@@ -67,12 +62,20 @@ class RawExchange(ExchangeGroup):
     def get_raw_darkfields(self):
         darkfield_names = self.get_dataset_names_like('data_dark')
         darkfields = []
-        print darkfield_names
         for d in darkfield_names:
             dset = self.get_dataset(d)
             darkfields.append(dset.get_array())
         return darkfields
     
+    def get_raw_whitefields(self):
+        whitefield_names = self.get_dataset_names_like('data_white')
+        whitefields = []
+        for d in whitefield_names:
+            dset = self.get_dataset(d)
+            whitefields.append(dset.get_array())
+        return whitefields  
+    
+      
     def get_white_field_list(self):
         ''' get the white field attribute which is an array of references to where the 
         white field corresponding to each frame in the raw data exists'''
@@ -89,11 +92,11 @@ class RawExchange(ExchangeGroup):
 class ProcessedExchange(ExchangeGroup):
     '''This variant of the exchange group is the for processed data'''
     
-    def __init__(self, h5group, title='processed data',*args, **kwargs):
+    def __init__(self, h5group, title='processed data', *args, **kwargs):
         '''
         Constructor
         '''
-        super(ProcessedExchange, self).__init__(h5group, title,*args, **kwargs)
+        super(ProcessedExchange, self).__init__(h5group, title, *args, **kwargs)
         self.set_title(title)
     
     def create_dataset(self, data, name="data", units='counts', **kwargs):
@@ -115,4 +118,5 @@ class ProcessedExchange(ExchangeGroup):
         dset = self.h5group.create_dataset(name, data=data, **kwargs)
         # dset.attrs['description']=description
         dset.attrs['units'] = units   
+
 

@@ -4,12 +4,13 @@ Created on 25/09/2013
 @author: Lenneke Jong <lenneke.jong@synchrotron.org.au>
 '''
 import os
-os.environ["LD_RUN_PATH"]='../../lib'
+os.environ["LD_RUN_PATH"] = '../../lib'
 from sxri_data_exchange.dataexchange import SXRIDataExchange
 import pipeline_component
-#from pre_processing import average_frameset, subtract_darkfield
-#from pyNADIA.double2d import PyDouble2D
-#from pyNADIA.complex2d import PyComplex2D
+import logging
+# from pre_processing import average_frameset, subtract_darkfield
+# from pyNADIA.double2d import PyDouble2D
+# from pyNADIA.complex2d import PyComplex2D
 
 class Pipeline(object):
     '''
@@ -17,28 +18,28 @@ class Pipeline(object):
     '''
  
     
-    def __init__(self,filepath):
+    def __init__(self, filepath):
         '''Constructor
             Get the pipeline variables from the hdf5 file itself, but for now lets just do some hardcoded setup
         '''
+        self.data_exchange = SXRIDataExchange(filepath)
         self.test_setup(filepath)
+        logging.basicConfig(filename='sxri_pipeline_testing.log',level=logging.DEBUG)
+        logging.debug('a debug message')
         
-    def test_setup(self,filepath):
+    def test_setup(self, filepath):
         '''
         Some hardcoded values for development and testing of the pipeline. All these values should be included in the 
         hdf5 file itself or derived from such values.
         '''
-        self.h5file=filepath
-        self.data_exchange=SXRIDataExchange(filepath)
-        
-        self.beam_wavelenth=4.892e-10
-        self.zone_focal_length=16.353e-3
-        self.focal_detector_length=0.909513 - 16.353e-3
-        self.pixel_size=13.5e-6
-        self.wf_support=163e-6
-        self.wf_initial_estimate=0
-        self.components=['process_raw_darkfields'] # this is a list of component names that we will call for this particular pipeline
-        self.logfile="sxr-i_pipeline.log"
+        logging.info('running the test setup')
+        self.beam_wavelenth = 4.892e-10
+        self.zone_focal_length = 16.353e-3
+        self.focal_detector_length = 0.909513 - 16.353e-3
+        self.pixel_size = 13.5e-6
+        self.wf_support = 163e-6
+        self.wf_initial_estimate = 0
+        self.components = ['process_raw_darkfields']  # this is a list of component names that we will call for this particular pipeline
     
     def setup_h5py(self):
         '''This function checks that we have the correct data present and will
@@ -55,30 +56,31 @@ class Pipeline(object):
         '''
         pass
     
-    def geometry_check(self):
+    def check_geometry(self):
         '''
         Checks that there are attributes that describe the geometry of the experiment. 
         '''
         pass
     
-    
-    
-    def run(self,*args,**kwargs):
-        pass
-    #    self.data_exchange.print_groups()
-       # for component in self.components:
-       #     component.__call__(self.data_exchange,self.logfile,*args,**kwargs)
- 
+
+    def run(self, *args, **kwargs):
+        ''' Run the pipeline
+        '''
+        averager = pipeline_component.DataAverager(self.data_exchange)
+        averager.run()
+        self.cleanup()
+        print 'done'
         
-    def test_run(self,logfile):
-        #self.get_config_from_file('fresnel_example.config')
-        pipeline_component.process_raw_darkfields(self.data_exchange,logfile)
+    def cleanup(self):
+        '''
+        Close the hdf5 file and other cleaning up.
+        '''
+        self.data_exchange.close()
         
         
 def main():
-    p=Pipeline('/home/jongl/SXRI/sxri-test.h5')
-    log = file('/home/jongl/SXRI/testing.log','a')
-    p.test_run(log)
+    p = Pipeline('/home/jongl/SXRI/sxri-test.h5')
+    p.run()
 
         
 if __name__ == "__main__":

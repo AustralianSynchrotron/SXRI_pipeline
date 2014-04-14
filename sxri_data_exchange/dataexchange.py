@@ -22,21 +22,21 @@ class SXRIDataExchange(h5py.File):
         This file wraps a hdf5 file containing raw scan data, created by the SXR-I beamline at the AS
         It follows the conventions of the APS DataExchange document.
         '''
-        super(SXRIDataExchange, self).__init__(filename,'a')
-        self.exchange_groups = [self.wrap_existing_exchange_group(self[k],k) for k in self.keys() if re.findall('exchange', k)]
-        self.measurement_groups = [MeasurementGroup(self[k],k) for k in self.keys() if re.findall('measurement', k)]
+        super(SXRIDataExchange, self).__init__(filename, 'a')
+        self.exchange_groups = [self.wrap_existing_exchange_group(self[k], k) for k in self.keys() if re.findall('exchange', k)]
+        self.measurement_groups = [MeasurementGroup(self[k], k) for k in self.keys() if re.findall('measurement', k)]
         self.provenance_group = self.create_provenance_group()
         self.nx = self['exchange']['data'].shape[-1] 
         self.ny = self['exchange']['data'].shape[-2]
-        self.implements=self['implements']
+        self.implements = self['implements']
         
-    def wrap_existing_exchange_group(self,h5group,name,**kwargs):
+    def wrap_existing_exchange_group(self, h5group, name, **kwargs):
         '''create ExchangeGroup objects for any groups that already exist in the hdf5 file. The first one is always 
         to be the raw data taken from the detector'''
         if name == 'exchange':
             wrapped = RawExchange(h5group)
         else:
-            wrapped=ProcessedExchange(h5group)
+            wrapped = ProcessedExchange(h5group)
         return wrapped
         
     def create_exchange_group(self, title, **kwargs):
@@ -44,9 +44,9 @@ class SXRIDataExchange(h5py.File):
         Create a wrapped exchange group in the root level group of the hdf5 file
         '''
         n = len(self.exchange_groups)
-        name="exchange"
+        name = "exchange"
         if n > 0:
-            new_exchange_group = ProcessedExchange(self.create_group("%s_%s" % (name,n)),title=title)
+            new_exchange_group = ProcessedExchange(self.create_group("%s_%s" % (name, n)), title=title)
         else:
             new_exchange_group = RawExchange(self.create_group(name))
         self.exchange_groups.append(new_exchange_group)
@@ -57,19 +57,18 @@ class SXRIDataExchange(h5py.File):
         Create a wrapped provenance group in the root level group of the hdf5 file
         '''
         if 'provenance' in self.keys():
-            print "already have a provenance group, let's wrap it'"
-            self.provenance_group=ProvenanceGroup(self['provenance'])
+            self.provenance_group = ProvenanceGroup(self['provenance'])
         else:
             self.provenance_group = ProvenanceGroup(self.create_group("provenance"))
-            self.implements=self.implements+":provenance"
+            self.implements = self.implements + ":provenance"
         return self.provenance_group
     
-    def get_provenance_group(self,**kwargs):
+    def get_provenance_group(self, **kwargs):
         '''
         Get the wrapped provenance group
         '''
         if not self.provenance_group:
-            return create_provenance_group()
+            return self.create_provenance_group()
         else:
             return self.provenance_group
     
@@ -91,12 +90,12 @@ class SXRIDataExchange(h5py.File):
         The raw data collected at the beam line is always contained the zeroth exhange group
         '''
         for eg in self.exchange_groups:
-            if isinstance(eg,RawExchange):
+            if isinstance(eg, RawExchange):
                 return eg
     
-    def add_process(self,name,description):
+    def add_process(self, name, description):
         '''Add a processing step to the provenance group'''
-        return self.provenance_group.create_process(name,description)
+        return self.provenance_group.create_process(name, description)
     
 
     def print_groups(self):
