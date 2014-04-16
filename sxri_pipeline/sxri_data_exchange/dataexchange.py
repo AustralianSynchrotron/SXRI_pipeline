@@ -105,3 +105,14 @@ class SXRIDataExchange(h5py.File):
         for key in self.keys():
             print key
             print self[key].name
+
+
+    def get_pixel_size(self):
+        '''
+        Helper method to easily get the pixel size out of the measurement group. We are assuming we have the one measurement group here
+        '''
+        return self.measurement_groups.get_pixel_size()
+
+    
+    def get_zp_distance(self):
+        

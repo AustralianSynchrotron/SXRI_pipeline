@@ -49,6 +49,7 @@ class Pipeline(object):
         self.check_geometry()
         
     
+    
     def check_exchange_data(self):
         '''
         check that there exists an exchange group which contains one dataset called data and at least

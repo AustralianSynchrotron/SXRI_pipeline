@@ -17,9 +17,15 @@ class MeasurementGroup(Group):
         '''
         self.h5group=h5group
         self.name=name
-       # self.sample=Sample(self.h5group.create_group("sample"))
-       # self.measurement=Instrument(self.h5group.create_group("instrument"))
+        # self.sample=Sample(self.h5group.create_group("sample"))
+        # self.measurement=Instrument(self.h5group.create_group("instrument"))
                            
+        
+        def get_pixel_size(self):
+            pass
+        
+        def get_zp_distance(self):
+            pass
         
         
 class Sample(Group):
@@ -169,11 +175,4 @@ class Experimenter(Group):
         self.set_dataset("facility_user_id",value)
 
 
-class Geometry(Group):
-    pass
-    
-    
-        
-class Instrument(Group):
-    pass
     
