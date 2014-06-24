@@ -22,9 +22,12 @@ class Dataset(object):
         else:
             pass 
     
-    def get_array(self):
-        return self.h5dataset
+    def get_array(self): # need to fix this so that it returns actual numpy arrays, not h5py datasets
+        return np.asarray(self.h5dataset,order='C')
     
+    def get_single_value(self):
+        print self.shape
+        return self.h5dataset[0]
         
     def add_array(self, subarr, dtype, axis, index=None):
         # add a subarray into the existing array (in position?)

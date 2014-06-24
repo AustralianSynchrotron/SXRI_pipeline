@@ -26,6 +26,10 @@ class Group(object):
         else:
             pass 
             # throw some exception here?
+            
+    def get_name(self):
+        return self.h5group.name
+    
     def create_string_dataset(self, name, data, *args, **kwargs):
         ''' creates a resizable string dataset useful for descritions, titles etc'''
         self.h5group.create_dataset(name, data=data, dtype=h5py.special_dtype(vlen=bytes))

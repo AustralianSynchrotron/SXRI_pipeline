@@ -26,7 +26,8 @@ class ExchangeGroup(Group):
         else:
             self.h5group['title'].data = title
         
-        
+    def get_title(self):
+        return self.h5group['title']
     
 
 class RawExchange(ExchangeGroup):
@@ -90,13 +91,16 @@ class RawExchange(ExchangeGroup):
     
     
 class ProcessedExchange(ExchangeGroup):
-    '''This variant of the exchange group is the for processed data'''
+    '''This variant of the exchange group is the for processed data
+        Note, it's possible we will want to change the implementation 
+        for this to be a separate hdf5 file and have this group as an external link
+    '''
     
-    def __init__(self, h5group, title='processed data', *args, **kwargs):
+    def __init__(self, h5group, name="exchange", title='processed data', *args, **kwargs):
         '''
         Constructor
         '''
-        super(ProcessedExchange, self).__init__(h5group, title, *args, **kwargs)
+        super(ProcessedExchange, self).__init__(h5group, name, title, *args, **kwargs)
         self.set_title(title)
     
     def create_dataset(self, data, name="data", units='counts', **kwargs):
@@ -117,6 +121,7 @@ class ProcessedExchange(ExchangeGroup):
             name = name + '_' + str(len(similar_dset_names))
         dset = self.h5group.create_dataset(name, data=data, **kwargs)
         # dset.attrs['description']=description
-        dset.attrs['units'] = units   
+        dset.attrs['units'] = units
+        print dset.name
 
 

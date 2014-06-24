@@ -28,6 +28,8 @@ class SXRIDataExchange(h5py.File):
         self.provenance_group = self.create_provenance_group()
         self.nx = self['exchange']['data'].shape[-1] 
         self.ny = self['exchange']['data'].shape[-2]
+        self.x_positions=self['exchange']['data'].shape[0] 
+        self.y_positions=self['exchange']['data'].shape[1] 
         self.implements = self['implements']
         
     def wrap_existing_exchange_group(self, h5group, name, **kwargs):
@@ -92,6 +94,22 @@ class SXRIDataExchange(h5py.File):
         for eg in self.exchange_groups:
             if isinstance(eg, RawExchange):
                 return eg
+            
+    def find_exchange_group_by_name(self, name):
+        '''
+        return the exchange group with the given name
+        '''
+        for eg in self.exchange_groups:
+            if eg.get_name() == name:
+                return eg
+            
+    def find_exchange_group_by_title(self, title):
+        '''
+        return the exchange group with the given title
+        '''
+        for eg in self.exchange_groups:
+            if eg.get_title() == title:
+                return eg
     
     def add_process(self, name, description):
         '''Add a processing step to the provenance group'''
@@ -107,12 +125,16 @@ class SXRIDataExchange(h5py.File):
             print self[key].name
 
 
-    def get_pixel_size(self):
+    def get_pixel_size(self,measurement_number=0):
         '''
-        Helper method to easily get the pixel size out of the measurement group. We are assuming we have the one measurement group here
+        Helper method to easily get the pixel size out of the measurement group with 
+        index measurement_number. Default is the first measurement group.
         '''
-        return self.measurement_groups.get_pixel_size()
+        return self.measurement_groups[measurement_number].get_pixel_size()
 
     
-    def get_zp_distance(self):
+    def get_zp_distance(self,measurement_number=0):
+        '''Helper method to easily get the zone plate distance out of the measurement group with 
+        index measurement_number. Default is the first measurement group.'''
+        return self.measurement_groups[measurement_number].get_zp_distance(self)
         
