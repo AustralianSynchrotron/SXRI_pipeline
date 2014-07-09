@@ -1,0 +1,37 @@
+.. _pipeline_modules_root:
+
+*****************************
+SXR-I Data Exchange modules
+*****************************
+
+.. automodule:: sxri_data_exchange.dataexchange
+   :members:
+ 
+
+.. automodule:: sxri_data_exchange.dataset
+   :members:
+   :inherited-members:
+
+.. automodule:: sxri_data_exchange.exchange
+   :members:
+   :inherited-members:
+
+.. automodule:: sxri_data_exchange.group
+   :members:
+   :inherited-members:
+
+.. automodule:: sxri_data_exchange.instrument
+   :members:
+   :inherited-members:
+
+.. automodule:: sxri_data_exchange.measurement
+   :members:
+   :inherited-members:
+
+.. automodule:: sxri_data_exchange.process
+   :members:
+   :inherited-members:
+
+.. automodule:: sxri_data_exchange.provenance
+   :members:
+   :inherited-members:

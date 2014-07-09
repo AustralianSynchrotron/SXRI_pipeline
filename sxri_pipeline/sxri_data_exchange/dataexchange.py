@@ -2,6 +2,8 @@
 Created on 07/10/2013
 
 @author: Lenneke Jong
+
+This module extends functionality in the h5py library to enforce the DataExchange format of the hdf5 file
 '''
 import h5py
 
@@ -33,7 +35,7 @@ class SXRIDataExchange(h5py.File):
         self.implements = self['implements']
         
     def wrap_existing_exchange_group(self, h5group, name, **kwargs):
-        '''create ExchangeGroup objects for any groups that already exist in the hdf5 file. The first one is always 
+        '''create ExchangeGroup objects for any groups that already exist in the hdf5 file. The one named "exchange" is always 
         to be the raw data taken from the detector'''
         if name == 'exchange':
             wrapped = RawExchange(h5group)

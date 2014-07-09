@@ -12,6 +12,7 @@ import traceback
 import argparse
 
 
+
 class Pipeline(object):
     '''
     Main class of the data processing pipeline for the SXR-Imaging beamline at
