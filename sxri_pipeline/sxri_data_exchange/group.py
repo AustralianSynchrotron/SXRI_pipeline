@@ -53,7 +53,14 @@ class Group(object):
         if dset:
             self.dataset_names.append(name)
         return dset
-        
+
+    def create_custom_dataset(self, dimension, name="data", **kwargs):
+        '''
+        Create general data set with name 'data', and shape(tuple)
+        '''
+        new_dataset = self.h5group.create_dataset(name, shape=dimension, **kwargs)
+        return Dataset(new_dataset)
+
     def get_dataset(self, name):
         '''Get a dataset by name'''
         if isinstance(self.h5group.get(name), h5py.Dataset):
