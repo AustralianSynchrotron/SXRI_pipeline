@@ -1,0 +1,1137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SXR-I Data Exchange modules &mdash; Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="top" title="Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation" href="index.html" />
+    <link rel="next" title="SXRI Pipeline modules" href="pipeline_modules.html" />
+    <link rel="prev" title="About this software" href="about.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pipeline_modules.html" title="SXRI Pipeline modules"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="about.html" title="About this software"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sxr-i-data-exchange-modules">
+<span id="pipeline-modules-root"></span><h1>SXR-I Data Exchange modules<a class="headerlink" href="#sxr-i-data-exchange-modules" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-sxri_data_exchange.dataexchange"></span><p>This module extends functionality in the h5py library to enforce the DataExchange format of the hdf5 file</p>
+<dl class="class">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.dataexchange.</tt><tt class="descname">SXRIDataExchange</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange" title="Permalink to this definition">¶</a></dt>
+<dd><p>class that maps to the DataExchange format from aps to a h5 file</p>
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.add_process">
+<tt class="descname">add_process</tt><big>(</big><em>name</em>, <em>description</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.add_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.add_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a processing step to the provenance group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.create_exchange_group">
+<tt class="descname">create_exchange_group</tt><big>(</big><em>title</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.create_exchange_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.create_exchange_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a wrapped exchange group in the root level group of the hdf5 file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.create_measurement_group">
+<tt class="descname">create_measurement_group</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.create_measurement_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.create_measurement_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a wrapped measurement group in the root level group of the hdf5 file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.create_provenance_group">
+<tt class="descname">create_provenance_group</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.create_provenance_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.create_provenance_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a wrapped provenance group in the root level group of the hdf5 file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.find_exchange_group_by_name">
+<tt class="descname">find_exchange_group_by_name</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.find_exchange_group_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.find_exchange_group_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the exchange group with the given name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.find_exchange_group_by_title">
+<tt class="descname">find_exchange_group_by_title</tt><big>(</big><em>title</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.find_exchange_group_by_title"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.find_exchange_group_by_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the exchange group with the given title</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.get_pixel_size">
+<tt class="descname">get_pixel_size</tt><big>(</big><em>measurement_number=0</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.get_pixel_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.get_pixel_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method to easily get the pixel size out of the measurement group with 
+index measurement_number. Default is the first measurement group.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.get_provenance_group">
+<tt class="descname">get_provenance_group</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.get_provenance_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.get_provenance_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the wrapped provenance group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.get_raw_exchange_group">
+<tt class="descname">get_raw_exchange_group</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.get_raw_exchange_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.get_raw_exchange_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>The raw data collected at the beam line is always contained the zeroth exhange group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.get_zp_distance">
+<tt class="descname">get_zp_distance</tt><big>(</big><em>measurement_number=0</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.get_zp_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.get_zp_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method to easily get the zone plate distance out of the measurement group with 
+index measurement_number. Default is the first measurement group.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.print_groups">
+<tt class="descname">print_groups</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.print_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.print_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>A method mostly useful for testing that just prints out the names of the top level groups in the file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.dataexchange.SXRIDataExchange.wrap_existing_exchange_group">
+<tt class="descname">wrap_existing_exchange_group</tt><big>(</big><em>h5group</em>, <em>name</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataexchange.html#SXRIDataExchange.wrap_existing_exchange_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataexchange.SXRIDataExchange.wrap_existing_exchange_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>create ExchangeGroup objects for any groups that already exist in the hdf5 file. The first one is always 
+to be the raw data taken from the detector</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-sxri_data_exchange.dataset"></span><dl class="class">
+<dt id="sxri_data_exchange.dataset.Dataset">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.dataset.</tt><tt class="descname">Dataset</tt><big>(</big><em>h5dataset</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/dataset.html#Dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.dataset.Dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>classdocs</p>
+</dd></dl>
+
+<span class="target" id="module-sxri_data_exchange.exchange"></span><dl class="class">
+<dt id="sxri_data_exchange.exchange.ExchangeGroup">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.exchange.</tt><tt class="descname">ExchangeGroup</tt><big>(</big><em>h5group</em>, <em>name</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/exchange.html#ExchangeGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.exchange.ExchangeGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>ExchangeGroup class wraps a h5py.Group class and enforces some 
+conventions in the DataExchange specification as implemented by the SXR-I branch line at the Australian Synchrotron</p>
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ExchangeGroup.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ExchangeGroup.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ExchangeGroup.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ExchangeGroup.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ExchangeGroup.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ExchangeGroup.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ExchangeGroup.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ExchangeGroup.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ExchangeGroup.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ExchangeGroup.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ExchangeGroup.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ExchangeGroup.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ExchangeGroup.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ExchangeGroup.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ExchangeGroup.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ExchangeGroup.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ExchangeGroup.set_title">
+<tt class="descname">set_title</tt><big>(</big><em>title</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/exchange.html#ExchangeGroup.set_title"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.exchange.ExchangeGroup.set_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the &#8220;title&#8221; dataset, creating it if it doesn&#8217;t exist. Dataset is a string representing the name of this exchange group</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sxri_data_exchange.exchange.ProcessedExchange">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.exchange.</tt><tt class="descname">ProcessedExchange</tt><big>(</big><em>h5group</em>, <em>name='exchange'</em>, <em>title='processed data'</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/exchange.html#ProcessedExchange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.exchange.ProcessedExchange" title="Permalink to this definition">¶</a></dt>
+<dd><p>This variant of the exchange group is the for processed data
+Note, it&#8217;s possible we will want to change the implementation 
+for this to be a separate hdf5 file and have this group as an external link</p>
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ProcessedExchange.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ProcessedExchange.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ProcessedExchange.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>units='counts'</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/exchange.html#ProcessedExchange.create_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.exchange.ProcessedExchange.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute 
+conventions</p>
+<p>&#64;param  data a numpy array 
+&#64;param title name for the dataset, default:&#8221;data&#8221;
+&#64;param description default:&#8221;transmission&#8221;
+&#64;param units default:&#8221;counts&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ProcessedExchange.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ProcessedExchange.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ProcessedExchange.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ProcessedExchange.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ProcessedExchange.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ProcessedExchange.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ProcessedExchange.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ProcessedExchange.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ProcessedExchange.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ProcessedExchange.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ProcessedExchange.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ProcessedExchange.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.ProcessedExchange.set_title">
+<tt class="descname">set_title</tt><big>(</big><em>title</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.ProcessedExchange.set_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the &#8220;title&#8221; dataset, creating it if it doesn&#8217;t exist. Dataset is a string representing the name of this exchange group</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sxri_data_exchange.exchange.RawExchange">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.exchange.</tt><tt class="descname">RawExchange</tt><big>(</big><em>h5group</em>, <em>name='exchange'</em>, <em>title='raw data'</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/exchange.html#RawExchange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange" title="Permalink to this definition">¶</a></dt>
+<dd><p>The raw data variant of the exchange group. In this group we expect one data
+set called &#8216;data&#8217; containing all the diffraction data frames Data is an
+a*b*c*2048*2048 numpy array with a= number of frames on each position, b and
+c the &#8216;x&#8217; and &#8216;y&#8217; coordinates of each scan position We also have
+data_white_n and data_dark_n datasets containing the whitefiled and
+darkfields which correspond to each frame these will be of size 2048*2048
+Attributes of the &#8216;data&#8217; dataset called &#8216;white_field&#8217; and &#8216;dark_field&#8217; map a
+reference to a dark field frame and white field frame for each data frame.
+This should actually be a read-only group for us</p>
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.get_dark_field_list">
+<tt class="descname">get_dark_field_list</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/exchange.html#RawExchange.get_dark_field_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.get_dark_field_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the dark field attribute which is an array of references to where the 
+dark field corresponding to each frame in the raw data exists</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.get_raw_dataset">
+<tt class="descname">get_raw_dataset</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/exchange.html#RawExchange.get_raw_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.get_raw_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get&#8217;s the dataset with the title &#8216;data&#8217; which contains all the raw data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.get_white_field_list">
+<tt class="descname">get_white_field_list</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/exchange.html#RawExchange.get_white_field_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.get_white_field_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the white field attribute which is an array of references to where the 
+white field corresponding to each frame in the raw data exists</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.exchange.RawExchange.set_title">
+<tt class="descname">set_title</tt><big>(</big><em>title</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.exchange.RawExchange.set_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the &#8220;title&#8221; dataset, creating it if it doesn&#8217;t exist. Dataset is a string representing the name of this exchange group</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-sxri_data_exchange.group"></span><dl class="class">
+<dt id="sxri_data_exchange.group.Group">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.group.</tt><tt class="descname">Group</tt><big>(</big><em>h5group</em>, <em>name=None</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/group.html#Group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.group.Group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Super class for all the group objects in our file.</p>
+<dl class="method">
+<dt id="sxri_data_exchange.group.Group.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/group.html#Group.add_attribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.group.Group.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.group.Group.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/group.html#Group.create_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.group.Group.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.group.Group.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/group.html#Group.create_string_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.group.Group.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.group.Group.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/group.html#Group.get_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.group.Group.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.group.Group.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/group.html#Group.get_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.group.Group.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.group.Group.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/group.html#Group.get_dataset_names_like"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.group.Group.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.group.Group.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/group.html#Group.get_num_arr_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.group.Group.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.group.Group.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/group.html#Group.set_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.group.Group.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-sxri_data_exchange.instrument"></span><dl class="class">
+<dt id="sxri_data_exchange.instrument.Detector">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.instrument.</tt><tt class="descname">Detector</tt><big>(</big><em>h5group</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/instrument.html#Detector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.instrument.Detector" title="Permalink to this definition">¶</a></dt>
+<dd><p>classdocs</p>
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Detector.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Detector.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Detector.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Detector.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Detector.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Detector.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Detector.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Detector.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Detector.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Detector.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Detector.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Detector.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Detector.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Detector.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Detector.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Detector.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sxri_data_exchange.instrument.Geometry">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.instrument.</tt><tt class="descname">Geometry</tt><big>(</big><em>h5group</em>, <em>name=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/instrument.html#Geometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.instrument.Geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>classdocs</p>
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Geometry.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Geometry.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Geometry.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Geometry.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Geometry.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Geometry.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Geometry.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Geometry.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Geometry.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Geometry.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Geometry.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Geometry.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Geometry.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Geometry.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Geometry.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Geometry.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sxri_data_exchange.instrument.Geometry.translation">
+<tt class="descname">translation</tt><a class="reference internal" href="_modules/sxri_data_exchange/instrument.html#Geometry.translation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.instrument.Geometry.translation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary containing all the named datasets in the translation group</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sxri_data_exchange.instrument.Instrument">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.instrument.</tt><tt class="descname">Instrument</tt><big>(</big><em>h5group</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/instrument.html#Instrument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.instrument.Instrument" title="Permalink to this definition">¶</a></dt>
+<dd><p>classdocs</p>
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Instrument.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Instrument.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Instrument.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Instrument.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Instrument.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Instrument.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Instrument.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Instrument.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Instrument.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Instrument.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Instrument.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Instrument.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Instrument.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Instrument.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Instrument.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Instrument.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sxri_data_exchange.instrument.Monochromator">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.instrument.</tt><tt class="descname">Monochromator</tt><big>(</big><em>h5group</em>, <em>name=None</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/instrument.html#Monochromator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.instrument.Monochromator" title="Permalink to this definition">¶</a></dt>
+<dd><p>classdocs</p>
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Monochromator.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Monochromator.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Monochromator.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Monochromator.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Monochromator.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Monochromator.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Monochromator.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Monochromator.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Monochromator.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Monochromator.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Monochromator.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Monochromator.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Monochromator.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Monochromator.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.instrument.Monochromator.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.instrument.Monochromator.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-sxri_data_exchange.measurement"></span><dl class="class">
+<dt id="sxri_data_exchange.measurement.Experiment">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.measurement.</tt><tt class="descname">Experiment</tt><big>(</big><em>h5group</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/measurement.html#Experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.measurement.Experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper class for the Experiment subgroup</p>
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experiment.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experiment.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experiment.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experiment.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experiment.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experiment.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experiment.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experiment.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experiment.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experiment.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experiment.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experiment.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experiment.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experiment.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experiment.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experiment.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sxri_data_exchange.measurement.Experimenter">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.measurement.</tt><tt class="descname">Experimenter</tt><big>(</big><em>h5group</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/measurement.html#Experimenter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.measurement.Experimenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper class for the Experimenter subgroup</p>
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experimenter.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experimenter.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experimenter.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experimenter.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experimenter.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experimenter.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experimenter.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experimenter.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experimenter.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experimenter.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experimenter.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experimenter.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experimenter.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experimenter.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Experimenter.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Experimenter.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.measurement.</tt><tt class="descname">MeasurementGroup</tt><big>(</big><em>h5group</em>, <em>name</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/measurement.html#MeasurementGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>classdocs</p>
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup.focal_detector_distance">
+<tt class="descname">focal_detector_distance</tt><a class="reference internal" href="_modules/sxri_data_exchange/measurement.html#MeasurementGroup.focal_detector_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup.focal_detector_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method to calculate zone plate to detector distances for all positions</p>
+<p>&#64;return a numpy array</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup.focal_sample_distance">
+<tt class="descname">focal_sample_distance</tt><a class="reference internal" href="_modules/sxri_data_exchange/measurement.html#MeasurementGroup.focal_sample_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup.focal_sample_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method to calculate zone plate to sample distances for all positions</p>
+<p>&#64;return a numpy array</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup.pixel_size">
+<tt class="descname">pixel_size</tt><a class="reference internal" href="_modules/sxri_data_exchange/measurement.html#MeasurementGroup.pixel_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup.pixel_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method to get pixel size</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.MeasurementGroup.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.MeasurementGroup.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sxri_data_exchange.measurement.Sample">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.measurement.</tt><tt class="descname">Sample</tt><big>(</big><em>h5group</em>, <em>name</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/measurement.html#Sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.measurement.Sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample class</p>
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Sample.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Sample.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Sample.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Sample.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Sample.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Sample.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sxri_data_exchange.measurement.Sample.environment">
+<tt class="descname">environment</tt><a class="reference internal" href="_modules/sxri_data_exchange/measurement.html#Sample.environment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.measurement.Sample.environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Environment dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Sample.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Sample.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Sample.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Sample.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Sample.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Sample.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Sample.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Sample.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.measurement.Sample.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.measurement.Sample.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-sxri_data_exchange.process"></span><dl class="class">
+<dt id="sxri_data_exchange.process.Process">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.process.</tt><tt class="descname">Process</tt><big>(</big><em>params</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/process.html#Process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.process.Process" title="Permalink to this definition">¶</a></dt>
+<dd><p>classdocs</p>
+<dl class="method">
+<dt id="sxri_data_exchange.process.Process.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.process.Process.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.process.Process.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.process.Process.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.process.Process.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.process.Process.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.process.Process.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.process.Process.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.process.Process.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.process.Process.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.process.Process.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.process.Process.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.process.Process.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.process.Process.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.process.Process.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.process.Process.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-sxri_data_exchange.provenance"></span><dl class="class">
+<dt id="sxri_data_exchange.provenance.ProcessGroup">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.provenance.</tt><tt class="descname">ProcessGroup</tt><big>(</big><em>h5group</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/provenance.html#ProcessGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.provenance.ProcessGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>ProcessGroup wraps a &#8216;process&#8217; subgroup which contains information describing each 
+processing step that happens to in the data pipeline. It contains references to the input 
+output data used.</p>
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProcessGroup.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProcessGroup.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProcessGroup.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProcessGroup.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProcessGroup.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProcessGroup.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProcessGroup.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProcessGroup.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProcessGroup.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProcessGroup.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProcessGroup.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProcessGroup.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProcessGroup.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProcessGroup.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProcessGroup.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProcessGroup.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sxri_data_exchange.provenance.ProvenanceGroup">
+<em class="property">class </em><tt class="descclassname">sxri_data_exchange.provenance.</tt><tt class="descname">ProvenanceGroup</tt><big>(</big><em>h5group</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/provenance.html#ProvenanceGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.provenance.ProvenanceGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>ProvenanceGroup wraps the &#8216;provenance&#8217; group sitting in the root of the hdf5 file.</p>
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProvenanceGroup.add_attribute">
+<tt class="descname">add_attribute</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProvenanceGroup.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an attribute to the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProvenanceGroup.create_dataset">
+<tt class="descname">create_dataset</tt><big>(</big><em>data</em>, <em>name='data'</em>, <em>chunks=True</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProvenanceGroup.create_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a dataset for this group enforcing naming and attribute conventions
+&#64;param  data a numpy array 
+&#64;param name for the dataset, default:&#8221;data&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProvenanceGroup.create_process">
+<tt class="descname">create_process</tt><big>(</big><em>name</em>, <em>description</em><big>)</big><a class="reference internal" href="_modules/sxri_data_exchange/provenance.html#ProvenanceGroup.create_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sxri_data_exchange.provenance.ProvenanceGroup.create_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#8216;create a process group containing a name and description</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProvenanceGroup.create_string_dataset">
+<tt class="descname">create_string_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProvenanceGroup.create_string_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a resizable string dataset useful for descritions, titles etc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProvenanceGroup.get_attributes">
+<tt class="descname">get_attributes</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProvenanceGroup.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>get all the attributes of this group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProvenanceGroup.get_dataset">
+<tt class="descname">get_dataset</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProvenanceGroup.get_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dataset by name</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProvenanceGroup.get_dataset_names_like">
+<tt class="descname">get_dataset_names_like</tt><big>(</big><em>pattern</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProvenanceGroup.get_dataset_names_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of dataset names that match a regular expression</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProvenanceGroup.get_num_arr_datasets">
+<tt class="descname">get_num_arr_datasets</tt><big>(</big><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProvenanceGroup.get_num_arr_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of numpy-like datasets in the group</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sxri_data_exchange.provenance.ProvenanceGroup.set_dataset">
+<tt class="descname">set_dataset</tt><big>(</big><em>name</em>, <em>data</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sxri_data_exchange.provenance.ProvenanceGroup.set_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a dataset</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="about.html"
+                        title="previous chapter">About this software</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pipeline_modules.html"
+                        title="next chapter">SXRI Pipeline modules</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/sde_modules.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pipeline_modules.html" title="SXRI Pipeline modules"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="about.html" title="About this software"
+             >previous</a> |</li>
+        <li><a href="index.html">Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Lenneke Jong.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

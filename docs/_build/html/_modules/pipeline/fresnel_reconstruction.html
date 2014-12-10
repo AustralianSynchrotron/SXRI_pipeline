@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pipeline.fresnel_reconstruction &mdash; Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="top" title="Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pipeline.fresnel_reconstruction</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 17/04/2014</span>
+
+<span class="sd">@author: Lenneke Jong</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">pipeline.pipeline_component</span> <span class="kn">import</span> <span class="n">PipelineComponent</span><span class="p">,</span> <span class="n">process</span>
+<span class="kn">from</span> <span class="nn">pyNADIA.fresnelcdiwf</span> <span class="kn">import</span> <span class="n">PyFresnelCDIWF</span>
+<span class="kn">from</span> <span class="nn">pyNADIA.complex2d</span> <span class="kn">import</span> <span class="n">PyComplex2D</span>
+<span class="kn">from</span> <span class="nn">pyNADIA.double2d</span> <span class="kn">import</span> <span class="n">PyDouble2D</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="c"># import pyNADIA.fresnelcdi</span>
+<span class="c"># import pyNADIA.phasediversecdi</span>
+
+<div class="viewcode-block" id="FresnelWhitefieldRecoTask"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask">[docs]</a><span class="k">class</span> <span class="nc">FresnelWhitefieldRecoTask</span><span class="p">(</span><span class="n">PipelineComponent</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    classdocs</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sxri_data_exchange</span><span class="p">,</span> <span class="n">num_iterations</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">normalisation</span><span class="o">=</span><span class="mf">1.0</span>
+                 <span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FresnelWhitefieldRecoTask</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">sxri_data_exchange</span><span class="p">,</span> 
+                                                        <span class="n">input_group_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                                                        <span class="n">title</span><span class="o">=</span><span class="s">&#39;Fresnel whitefield reconstruction&#39;</span><span class="p">,</span>
+                                                        <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&quot;initialising FresnelWhitefieldRecoTask&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fsd</span> <span class="o">=</span> <span class="n">sxri_data_exchange</span><span class="o">.</span><span class="n">measurement_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">focal_sample_distance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ftd</span> <span class="o">=</span> <span class="n">sxri_data_exchange</span><span class="o">.</span><span class="n">measurement_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">focal_detector_distance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pixel_size</span> <span class="o">=</span> <span class="n">sxri_data_exchange</span><span class="o">.</span><span class="n">measurement_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pixel_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span> <span class="o">=</span> <span class="n">sxri_data_exchange</span><span class="o">.</span><span class="n">measurement_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="c"># self.whitefield_data = sxri_data_exchange.get_processed_whitefields()</span>
+<span class="c">#        self.zpfd = zone plate to focal distance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">x_positions</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">y_positions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normalisation</span> <span class="o">=</span> <span class="n">normalisation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_iterations</span> <span class="o">=</span> <span class="n">num_iterations</span>  <span class="c"># set a default?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reco_objects</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">whitefield_recos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_whitefield_recos</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object_estimates</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<div class="viewcode-block" id="FresnelWhitefieldRecoTask.run"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Run the fresnel whitefield reconstruction task</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial_intensities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_input_data</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fresnel_whitefield_reconstruction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="FresnelWhitefieldRecoTask.get_input_data"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.get_input_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_input_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Read the input data from the hdf5 file and create a dictionary of </span>
+<span class="sd">        PyDouble2D objects corresponding to the initial data for each position.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">initial_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_group</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s">&#39;data_white_averaged&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_array</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">initial_array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">initial_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">x_positions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">y_positions</span><span class="p">):</span>
+                <span class="n">input_array</span> <span class="o">=</span> <span class="n">initial_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">pydub2d</span> <span class="o">=</span> <span class="n">PyDouble2D</span><span class="p">()</span>
+                <span class="n">pydub2d</span><span class="o">.</span><span class="n">set_array_ptr</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
+                <span class="n">initial_dict</span><span class="p">[</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">y_positions</span> <span class="o">+</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">pydub2d</span>
+        <span class="k">return</span> <span class="n">initial_dict</span>
+</div>
+<div class="viewcode-block" id="FresnelWhitefieldRecoTask.init_whitefield_recos"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.init_whitefield_recos">[docs]</a>    <span class="k">def</span> <span class="nf">init_whitefield_recos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates a dictionary numpy arrays corresponding to the complex 2d array obtained by</span>
+<span class="sd">        reconstruction routine. We pass the pointer to the underlying data to a PyComplex2D object which </span>
+<span class="sd">        is then passed to the PyFresnelCDIWF object. This array holds the final result of the reconstructions.</span>
+<span class="sd">        The next step is to see if it is possible to use the 1 multi-dimensional array and use memory views, </span>
+<span class="sd">        but the underlying array may not be contiguous then, depending on how we specify it. </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">wf_recos</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">x_positions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">y_positions</span><span class="p">):</span>
+                <span class="n">reco</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">ny</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">complex</span><span class="p">)</span>
+                <span class="n">wf_recos</span><span class="p">[</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">y_positions</span> <span class="o">+</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">reco</span>
+        <span class="k">return</span> <span class="n">wf_recos</span>
+
+</div>
+    <span class="nd">@process</span>
+<div class="viewcode-block" id="FresnelWhitefieldRecoTask.fresnel_whitefield_reconstruction"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.fresnel_whitefield_reconstruction">[docs]</a>    <span class="k">def</span> <span class="nf">fresnel_whitefield_reconstruction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_exchange</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Fresnel whitefield reconstruction</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c"># set up the numpy array for reconstructions</span>
+     <span class="c">#   self.whitefield_recos = numpy.zeros([self.data_exchange.x_positions, self.data_exchange.y_positions, self.data_exchange.nx, self.data_exchange.ny], dtype=numpy.complex_t)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialise_reconstructions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">x_positions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">y_positions</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">x_positions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">y_positions</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fresnel_whitefield_iteration</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">y_positions</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_iterations</span><span class="p">)</span> 
+        <span class="k">print</span> <span class="s">&quot;done the recos&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_group</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">whitefield_recos_to_numpy</span><span class="p">(),</span> <span class="s">&quot;whitefield_reconstructions&quot;</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&quot;written to file&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_group</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_group</span><span class="o">.</span><span class="n">ref</span>
+
+</div>
+<div class="viewcode-block" id="FresnelWhitefieldRecoTask.initialise_reconstructions"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.initialise_reconstructions">[docs]</a>    <span class="k">def</span> <span class="nf">initialise_reconstructions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_positions</span><span class="p">,</span> <span class="n">y_positions</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Set up the PyFresnelCDIWF objects and do initial steps </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_positions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_positions</span><span class="p">):</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y_positions</span> <span class="o">+</span> <span class="n">y</span>
+                <span class="c"># need to pass in a PyComplex2D, not just a 2D array</span>
+                <span class="n">object_estimate</span> <span class="o">=</span> <span class="n">PyComplex2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">ny</span><span class="p">)</span>
+                <span class="n">object_estimate</span><span class="o">.</span><span class="n">set_array_ptr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">whitefield_recos</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">object_estimates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">object_estimate</span>
+                <span class="n">ftd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ftd</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">fsd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsd</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">reco_object</span> <span class="o">=</span> <span class="n">PyFresnelCDIWF</span><span class="p">(</span><span class="n">object_estimate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">ftd</span><span class="p">,</span> <span class="n">fsd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalisation</span><span class="p">)</span>
+                <span class="n">reco_object</span><span class="o">.</span><span class="n">initialiseEstimate</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">reco_object</span><span class="o">.</span><span class="n">setSupport</span><span class="p">(</span><span class="mf">163e-6</span><span class="p">)</span>
+                <span class="n">reco_object</span><span class="o">.</span><span class="n">setIntensity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_intensities</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c"># need to create a PyDouble2D object here</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reco_objects</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">reco_object</span>
+</div>
+<div class="viewcode-block" id="FresnelWhitefieldRecoTask.whitefield_recos_to_numpy"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.whitefield_recos_to_numpy">[docs]</a>    <span class="k">def</span> <span class="nf">whitefield_recos_to_numpy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Copy the individual reconstructed whitefield numpy arrays into a larger one to store in the</span>
+<span class="sd">        hdf5 file. This is not ideal and if it is possible to use a larger numpy array for all of these and slice according</span>
+<span class="sd">        it may not be necessary.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c"># need to figure out a way to efficiently reconstruct the &quot;datacube&quot; for the whitefield recos</span>
+        <span class="n">wfs</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">x_positions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">y_positions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">ny</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">complex_</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">x_positions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">y_positions</span><span class="p">):</span>
+                <span class="n">wfs</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">whitefield_recos</span><span class="p">[</span><span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="o">.</span><span class="n">x_positions</span> <span class="o">+</span> <span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">wfs</span>
+</div>
+<div class="viewcode-block" id="FresnelWhitefieldRecoTask.fresnel_whitefield_iteration"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.fresnel_whitefield_iteration">[docs]</a>    <span class="k">def</span> <span class="nf">fresnel_whitefield_iteration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">num_iterations</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Do num_iterations on object with index i</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">ni</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_iterations</span><span class="p">):</span>
+            <span class="n">success</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reco_objects</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">iterate</span><span class="p">()</span>
+</div></div>
+<div class="viewcode-block" id="fresnel_whitefield_reco"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.fresnel_reconstruction.fresnel_whitefield_reco">[docs]</a><span class="k">def</span> <span class="nf">fresnel_whitefield_reco</span><span class="p">(</span><span class="n">data_exchange</span><span class="p">,</span> <span class="n">input_group_name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Do a Fresnel whitefield reconstruction on processed frames,</span>
+<span class="sd">        giving an input group name for a given data_exchange file</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">fwfreco</span> <span class="o">=</span> <span class="n">FresnelWhitefieldRecoTask</span><span class="p">(</span><span class="n">data_exchange</span><span class="p">,</span> <span class="n">input_group_name</span><span class="p">)</span>
+    <span class="n">fwfreco</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s">&quot;done&quot;</span>
+</div>
+<div class="viewcode-block" id="fresnel_whitefield_reco2"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.fresnel_reconstruction.fresnel_whitefield_reco2">[docs]</a><span class="k">def</span> <span class="nf">fresnel_whitefield_reco2</span><span class="p">(</span><span class="n">data_exchange</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Do a Fresnel whitefield reconstruction on processed frames </span>
+<span class="sd">        for a given data_exchange file</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">fwfreco</span> <span class="o">=</span> <span class="n">FresnelWhitefieldRecoTask</span><span class="p">(</span><span class="n">data_exchange</span><span class="p">)</span>
+    <span class="n">fwfreco</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s">&quot;done2&quot;</span>
+</div>
+<span class="k">def</span> <span class="nf">fresnel_ptyco_reco</span><span class="p">(</span><span class="n">data_exchange</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Lenneke Jong.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

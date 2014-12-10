@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pipeline.pre_processing &mdash; Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="top" title="Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pipeline.pre_processing</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 17/04/2014</span>
+
+<span class="sd">@author: Lenneke Jong &lt;lenneke.jong@synchrotron.org.au&gt;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">pipeline.pipeline_component</span> <span class="kn">import</span> <span class="n">PipelineComponent</span><span class="p">,</span> <span class="n">process</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<div class="viewcode-block" id="run_data_averager"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.pre_processing.run_data_averager">[docs]</a><span class="k">def</span> <span class="nf">run_data_averager</span><span class="p">(</span><span class="n">data_exchange</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    create the DataAverager object and run it.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">averager</span> <span class="o">=</span> <span class="n">DataAverager</span><span class="p">(</span><span class="n">data_exchange</span><span class="p">)</span>
+    <span class="n">averager</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">averager</span><span class="o">.</span><span class="n">output_group</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="run_darkfield_subtractor"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.pre_processing.run_darkfield_subtractor">[docs]</a><span class="k">def</span> <span class="nf">run_darkfield_subtractor</span><span class="p">(</span><span class="n">data_exchange</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    create the DarkfieldSubtractor object and run it.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">subtractor</span> <span class="o">=</span> <span class="n">DarkfieldSubtractor</span><span class="p">(</span><span class="n">data_exchange</span><span class="p">)</span>
+    <span class="n">subtractor</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+
+
+<span class="c"># this class is an example of a pipeline component. We can use the @process decorator to automatically</span>
+<span class="c"># add provenance information to the hdf5 file. </span>
+<span class="c"># The docstring is used to generate the description </span>
+</div>
+<div class="viewcode-block" id="DataAverager"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.pre_processing.DataAverager">[docs]</a><span class="k">class</span> <span class="nc">DataAverager</span><span class="p">(</span><span class="n">PipelineComponent</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This class implements averaging over a number of exposures across the darkfields, whitefields and the diffraction data</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_exchange</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DataAverager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">data_exchange</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;processed, darkfields, whitefields and data averaged&#39;</span><span class="p">,</span> 
+                                           <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+       
+    
+        
+<div class="viewcode-block" id="DataAverager.run"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.pre_processing.DataAverager.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        The method called by the pipeline from outside of this class</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">average_raw_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_exchange</span><span class="p">)</span>
+        </div>
+    <span class="nd">@process</span>
+<div class="viewcode-block" id="DataAverager.average_raw_data"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.pre_processing.DataAverager.average_raw_data">[docs]</a>    <span class="k">def</span> <span class="nf">average_raw_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_exchange</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Averages the raw data</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">average_raw_darkfields</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">average_raw_whitefields</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">average_raw_diffraction_images</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_group</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_group</span><span class="o">.</span><span class="n">ref</span>
+</div>
+<div class="viewcode-block" id="DataAverager.average_raw_darkfields"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.pre_processing.DataAverager.average_raw_darkfields">[docs]</a>    <span class="k">def</span> <span class="nf">average_raw_darkfields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Process raw darkfields</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">raw_darkfields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_group</span><span class="o">.</span><span class="n">get_raw_darkfields</span><span class="p">()</span>
+        <span class="n">av</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">(</span><span class="n">raw_darkfields</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_group</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">av</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;data_dark_averaged&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DataAverager.average_raw_whitefields"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.pre_processing.DataAverager.average_raw_whitefields">[docs]</a>    <span class="k">def</span> <span class="nf">average_raw_whitefields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Process raw whitefields</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">raw_whitefields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_group</span><span class="o">.</span><span class="n">get_raw_whitefields</span><span class="p">()</span>
+        <span class="n">av</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">(</span><span class="n">raw_whitefields</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_group</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">av</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;data_white_averaged&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DataAverager.average_raw_diffraction_images"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.pre_processing.DataAverager.average_raw_diffraction_images">[docs]</a>    <span class="k">def</span> <span class="nf">average_raw_diffraction_images</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; average the exposures of diffraction images at each position</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">raw_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_group</span><span class="o">.</span><span class="n">get_raw_dataset</span><span class="p">()</span><span class="o">.</span><span class="n">get_array</span><span class="p">()</span>
+        <span class="n">x_positions</span><span class="p">,</span> <span class="n">y_positions</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">av_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">x_positions</span><span class="p">,</span> <span class="n">y_positions</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">))</span>  <span class="c"># don&#39;t hard code these dimensions</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_positions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_positions</span><span class="p">):</span>
+                <span class="n">av_data</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_group</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">av_data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="DarkfieldSubtractor"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.pre_processing.DarkfieldSubtractor">[docs]</a><span class="k">class</span> <span class="nc">DarkfieldSubtractor</span><span class="p">(</span><span class="n">PipelineComponent</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This class implements removing the averaged darkfield from the averaged diffraction images</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_exchange</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DarkfieldSubtractor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">data_exchange</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;subtracts average darkfield from the averaged diffraction images&#39;</span><span class="p">,</span> 
+                                           <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DarkfieldSubtractor.run"><a class="viewcode-back" href="../../pipeline_modules.html#pipeline.pre_processing.DarkfieldSubtractor.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        The method called by the pipeline from outside of this class</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span>
+</pre></div></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Lenneke Jong.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

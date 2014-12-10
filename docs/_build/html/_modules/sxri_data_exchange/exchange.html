@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>sxri_data_exchange.exchange &mdash; Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="top" title="Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for sxri_data_exchange.exchange</h1><div class="highlight"><pre>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Created on 07/10/2013</span>
+
+<span class="sd">@author: Lenneke Jong</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">sxri_data_exchange.group</span> <span class="kn">import</span> <span class="n">Group</span>
+
+<div class="viewcode-block" id="ExchangeGroup"><a class="viewcode-back" href="../../sde_modules.html#sxri_data_exchange.exchange.ExchangeGroup">[docs]</a><span class="k">class</span> <span class="nc">ExchangeGroup</span><span class="p">(</span><span class="n">Group</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    ExchangeGroup class wraps a h5py.Group class and enforces some </span>
+<span class="sd">    conventions in the DataExchange specification as implemented by the SXR-I branch line at the Australian Synchrotron</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5group</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ExchangeGroup</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">h5group</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="c"># self.h5group.require_dataset(&#39;data&#39;)</span>
+        
+<div class="viewcode-block" id="ExchangeGroup.set_title"><a class="viewcode-back" href="../../sde_modules.html#sxri_data_exchange.exchange.ExchangeGroup.set_title">[docs]</a>    <span class="k">def</span> <span class="nf">set_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;set the &quot;title&quot; dataset, creating it if it doesn&#39;t exist. Dataset is a string representing the name of this exchange group&#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="s">&#39;title&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5group</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_string_dataset</span><span class="p">(</span><span class="s">&#39;title&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">h5group</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">title</span>
+        </div>
+    <span class="k">def</span> <span class="nf">get_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5group</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span>
+    
+</div>
+<div class="viewcode-block" id="RawExchange"><a class="viewcode-back" href="../../sde_modules.html#sxri_data_exchange.exchange.RawExchange">[docs]</a><span class="k">class</span> <span class="nc">RawExchange</span><span class="p">(</span><span class="n">ExchangeGroup</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    The raw data variant of the exchange group. In this group we expect one data</span>
+<span class="sd">    set called &#39;data&#39; containing all the diffraction data frames Data is an</span>
+<span class="sd">    a*b*c*2048*2048 numpy array with a= number of frames on each position, b and</span>
+<span class="sd">    c the &#39;x&#39; and &#39;y&#39; coordinates of each scan position We also have</span>
+<span class="sd">    data_white_n and data_dark_n datasets containing the whitefiled and</span>
+<span class="sd">    darkfields which correspond to each frame these will be of size 2048*2048</span>
+<span class="sd">    Attributes of the &#39;data&#39; dataset called &#39;white_field&#39; and &#39;dark_field&#39; map a</span>
+<span class="sd">    reference to a dark field frame and white field frame for each data frame.</span>
+<span class="sd">    This should actually be a read-only group for us</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5group</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;exchange&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;raw data&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RawExchange</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">h5group</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    
+    
+<div class="viewcode-block" id="RawExchange.get_raw_dataset"><a class="viewcode-back" href="../../sde_modules.html#sxri_data_exchange.exchange.RawExchange.get_raw_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">get_raw_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Get&#39;s the dataset with the title &#39;data&#39; which contains all the raw data</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s">&#39;data&#39;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;no dataset&#39;</span><span class="p">)</span>
+    </div>
+    <span class="k">def</span> <span class="nf">get_raw_darkfields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">darkfield_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dataset_names_like</span><span class="p">(</span><span class="s">&#39;data_dark&#39;</span><span class="p">)</span>
+        <span class="n">darkfields</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">darkfield_names</span><span class="p">:</span>
+            <span class="n">dset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+            <span class="n">darkfields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dset</span><span class="o">.</span><span class="n">get_array</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">darkfields</span>
+    
+    <span class="k">def</span> <span class="nf">get_raw_whitefields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">whitefield_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dataset_names_like</span><span class="p">(</span><span class="s">&#39;data_white&#39;</span><span class="p">)</span>
+        <span class="n">whitefields</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">whitefield_names</span><span class="p">:</span>
+            <span class="n">dset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+            <span class="n">whitefields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dset</span><span class="o">.</span><span class="n">get_array</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">whitefields</span>  
+    
+      
+<div class="viewcode-block" id="RawExchange.get_white_field_list"><a class="viewcode-back" href="../../sde_modules.html#sxri_data_exchange.exchange.RawExchange.get_white_field_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_white_field_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; get the white field attribute which is an array of references to where the </span>
+<span class="sd">        white field corresponding to each frame in the raw data exists&#39;&#39;&#39;</span>
+        <span class="n">raw_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_raw_dataset</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s">&#39;white_field&#39;</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="RawExchange.get_dark_field_list"><a class="viewcode-back" href="../../sde_modules.html#sxri_data_exchange.exchange.RawExchange.get_dark_field_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_dark_field_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; get the dark field attribute which is an array of references to where the </span>
+<span class="sd">        dark field corresponding to each frame in the raw data exists&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5group</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s">&#39;dark_field&#39;</span><span class="p">)</span>
+    
+    
+    </div></div>
+<div class="viewcode-block" id="ProcessedExchange"><a class="viewcode-back" href="../../sde_modules.html#sxri_data_exchange.exchange.ProcessedExchange">[docs]</a><span class="k">class</span> <span class="nc">ProcessedExchange</span><span class="p">(</span><span class="n">ExchangeGroup</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;This variant of the exchange group is the for processed data</span>
+<span class="sd">        Note, it&#39;s possible we will want to change the implementation </span>
+<span class="sd">        for this to be a separate hdf5 file and have this group as an external link</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5group</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;exchange&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;processed data&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Constructor</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ProcessedExchange</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">h5group</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="ProcessedExchange.create_dataset"><a class="viewcode-back" href="../../sde_modules.html#sxri_data_exchange.exchange.ProcessedExchange.create_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">create_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;data&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;counts&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;creates a dataset for this group enforcing naming and attribute </span>
+<span class="sd">            conventions</span>
+<span class="sd">            </span>
+<span class="sd">            @param  data a numpy array </span>
+<span class="sd">            @param title name for the dataset, default:&quot;data&quot;</span>
+<span class="sd">            @param description default:&quot;transmission&quot;</span>
+<span class="sd">            @param units default:&quot;counts&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c"># first count if there are other datasets</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Dataset named </span><span class="si">%s</span><span class="s"> already exists&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+            <span class="c"># append a number to the end of the title by selecting all datasets that match the pattern title_%d? not sure how to do that</span>
+        <span class="n">similar_dset_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dataset_names_like</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">similar_dset_names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">similar_dset_names</span><span class="p">))</span>
+        <span class="n">dset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5group</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c"># dset.attrs[&#39;description&#39;]=description</span>
+        <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
+        <span class="k">print</span> <span class="n">dset</span><span class="o">.</span><span class="n">name</span>
+</pre></div></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Lenneke Jong.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+.. _pipeline_modules_root:
+
+*******************
+SXRI Pipeline modules
+*******************
+
+.. automodule:: pipeline/pipeline_component
+.. autoclass:: PipelineComponent
+
+
+.. automodule:: pre-processing
+   :members:
+   :undoc-members:

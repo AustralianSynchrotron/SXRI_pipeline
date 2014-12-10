@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SXRI Pipeline modules &mdash; Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="top" title="Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation" href="index.html" />
+    <link rel="prev" title="SXR-I Data Exchange modules" href="sde_modules.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sde_modules.html" title="SXR-I Data Exchange modules"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sxri-pipeline-modules">
+<span id="pipeline-modules-root"></span><h1>SXRI Pipeline modules<a class="headerlink" href="#sxri-pipeline-modules" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>pipeline_component<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-pipeline.pipeline_component"></span><dl class="class">
+<dt id="pipeline.pipeline_component.PipelineComponent">
+<em class="property">class </em><tt class="descclassname">pipeline.pipeline_component.</tt><tt class="descname">PipelineComponent</tt><big>(</big><em>data_exchange</em>, <em>input_group_name=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/pipeline/pipeline_component.html#PipelineComponent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pipeline_component.PipelineComponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base object for pipeline components to inherit from.</p>
+<dl class="method">
+<dt id="pipeline.pipeline_component.PipelineComponent.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pipeline/pipeline_component.html#PipelineComponent.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pipeline_component.PipelineComponent.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method which will be called to run this pipeline component. Must be 
+overridden in subclasses</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pipeline.pipeline_component.process">
+<tt class="descclassname">pipeline.pipeline_component.</tt><tt class="descname">process</tt><big>(</big><em>f</em><big>)</big><a class="reference internal" href="_modules/pipeline/pipeline_component.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pipeline_component.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator to use on the main function that is running a pipeline component
+It will add the correct information, including references, to the
+provenance group and create a correctly named exchange group</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pipeline.pre_processing">
+<span id="id2"></span><h2>pre-processing<a class="headerlink" href="#module-pipeline.pre_processing" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pipeline.pre_processing.DarkfieldSubtractor">
+<em class="property">class </em><tt class="descclassname">pipeline.pre_processing.</tt><tt class="descname">DarkfieldSubtractor</tt><big>(</big><em>data_exchange</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/pipeline/pre_processing.html#DarkfieldSubtractor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pre_processing.DarkfieldSubtractor" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class implements removing the averaged darkfield from the averaged diffraction images</p>
+<dl class="method">
+<dt id="pipeline.pre_processing.DarkfieldSubtractor.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pipeline/pre_processing.html#DarkfieldSubtractor.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pre_processing.DarkfieldSubtractor.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method called by the pipeline from outside of this class</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pipeline.pre_processing.DataAverager">
+<em class="property">class </em><tt class="descclassname">pipeline.pre_processing.</tt><tt class="descname">DataAverager</tt><big>(</big><em>data_exchange</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/pipeline/pre_processing.html#DataAverager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pre_processing.DataAverager" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class implements averaging over a number of exposures across the darkfields, whitefields and the diffraction data</p>
+<dl class="method">
+<dt id="pipeline.pre_processing.DataAverager.average_raw_darkfields">
+<tt class="descname">average_raw_darkfields</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/pipeline/pre_processing.html#DataAverager.average_raw_darkfields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pre_processing.DataAverager.average_raw_darkfields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process raw darkfields</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pipeline.pre_processing.DataAverager.average_raw_data">
+<tt class="descname">average_raw_data</tt><big>(</big><em>data_exchange</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/pipeline/pre_processing.html#DataAverager.average_raw_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pre_processing.DataAverager.average_raw_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Averages the raw data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pipeline.pre_processing.DataAverager.average_raw_diffraction_images">
+<tt class="descname">average_raw_diffraction_images</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/pipeline/pre_processing.html#DataAverager.average_raw_diffraction_images"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pre_processing.DataAverager.average_raw_diffraction_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>average the exposures of diffraction images at each position</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pipeline.pre_processing.DataAverager.average_raw_whitefields">
+<tt class="descname">average_raw_whitefields</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/pipeline/pre_processing.html#DataAverager.average_raw_whitefields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pre_processing.DataAverager.average_raw_whitefields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process raw whitefields</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pipeline.pre_processing.DataAverager.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pipeline/pre_processing.html#DataAverager.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pre_processing.DataAverager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method called by the pipeline from outside of this class</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pipeline.pre_processing.run_darkfield_subtractor">
+<tt class="descclassname">pipeline.pre_processing.</tt><tt class="descname">run_darkfield_subtractor</tt><big>(</big><em>data_exchange</em><big>)</big><a class="reference internal" href="_modules/pipeline/pre_processing.html#run_darkfield_subtractor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pre_processing.run_darkfield_subtractor" title="Permalink to this definition">¶</a></dt>
+<dd><p>create the DarkfieldSubtractor object and run it.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipeline.pre_processing.run_data_averager">
+<tt class="descclassname">pipeline.pre_processing.</tt><tt class="descname">run_data_averager</tt><big>(</big><em>data_exchange</em><big>)</big><a class="reference internal" href="_modules/pipeline/pre_processing.html#run_data_averager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.pre_processing.run_data_averager" title="Permalink to this definition">¶</a></dt>
+<dd><p>create the DataAverager object and run it.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pipeline.fresnel_reconstruction">
+<span id="id3"></span><h2>Fresnel Reconstruction<a class="headerlink" href="#module-pipeline.fresnel_reconstruction" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask">
+<em class="property">class </em><tt class="descclassname">pipeline.fresnel_reconstruction.</tt><tt class="descname">FresnelWhitefieldRecoTask</tt><big>(</big><em>sxri_data_exchange</em>, <em>num_iterations=25</em>, <em>normalisation=1.0</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/pipeline/fresnel_reconstruction.html#FresnelWhitefieldRecoTask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask" title="Permalink to this definition">¶</a></dt>
+<dd><p>classdocs</p>
+<dl class="method">
+<dt id="pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.fresnel_whitefield_iteration">
+<tt class="descname">fresnel_whitefield_iteration</tt><big>(</big><em>i</em>, <em>num_iterations</em><big>)</big><a class="reference internal" href="_modules/pipeline/fresnel_reconstruction.html#FresnelWhitefieldRecoTask.fresnel_whitefield_iteration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.fresnel_whitefield_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do num_iterations on object with index i</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.fresnel_whitefield_reconstruction">
+<tt class="descname">fresnel_whitefield_reconstruction</tt><big>(</big><em>data_exchange</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/pipeline/fresnel_reconstruction.html#FresnelWhitefieldRecoTask.fresnel_whitefield_reconstruction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.fresnel_whitefield_reconstruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fresnel whitefield reconstruction</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.get_input_data">
+<tt class="descname">get_input_data</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pipeline/fresnel_reconstruction.html#FresnelWhitefieldRecoTask.get_input_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.get_input_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the input data from the hdf5 file and create a dictionary of 
+PyDouble2D objects corresponding to the initial data for each position.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.init_whitefield_recos">
+<tt class="descname">init_whitefield_recos</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pipeline/fresnel_reconstruction.html#FresnelWhitefieldRecoTask.init_whitefield_recos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.init_whitefield_recos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a dictionary numpy arrays corresponding to the complex 2d array obtained by
+reconstruction routine. We pass the pointer to the underlying data to a PyComplex2D object which 
+is then passed to the PyFresnelCDIWF object. This array holds the final result of the reconstructions.
+The next step is to see if it is possible to use the 1 multi-dimensional array and use memory views, 
+but the underlying array may not be contiguous then, depending on how we specify it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.initialise_reconstructions">
+<tt class="descname">initialise_reconstructions</tt><big>(</big><em>x_positions</em>, <em>y_positions</em><big>)</big><a class="reference internal" href="_modules/pipeline/fresnel_reconstruction.html#FresnelWhitefieldRecoTask.initialise_reconstructions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.initialise_reconstructions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set up the PyFresnelCDIWF objects and do initial steps</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pipeline/fresnel_reconstruction.html#FresnelWhitefieldRecoTask.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the fresnel whitefield reconstruction task</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.whitefield_recos_to_numpy">
+<tt class="descname">whitefield_recos_to_numpy</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pipeline/fresnel_reconstruction.html#FresnelWhitefieldRecoTask.whitefield_recos_to_numpy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.fresnel_reconstruction.FresnelWhitefieldRecoTask.whitefield_recos_to_numpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the individual reconstructed whitefield numpy arrays into a larger one to store in the
+hdf5 file. This is not ideal and if it is possible to use a larger numpy array for all of these and slice according
+it may not be necessary.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pipeline.fresnel_reconstruction.fresnel_whitefield_reco">
+<tt class="descclassname">pipeline.fresnel_reconstruction.</tt><tt class="descname">fresnel_whitefield_reco</tt><big>(</big><em>data_exchange</em>, <em>input_group_name</em><big>)</big><a class="reference internal" href="_modules/pipeline/fresnel_reconstruction.html#fresnel_whitefield_reco"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.fresnel_reconstruction.fresnel_whitefield_reco" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do a Fresnel whitefield reconstruction on processed frames,
+giving an input group name for a given data_exchange file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipeline.fresnel_reconstruction.fresnel_whitefield_reco2">
+<tt class="descclassname">pipeline.fresnel_reconstruction.</tt><tt class="descname">fresnel_whitefield_reco2</tt><big>(</big><em>data_exchange</em><big>)</big><a class="reference internal" href="_modules/pipeline/fresnel_reconstruction.html#fresnel_whitefield_reco2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pipeline.fresnel_reconstruction.fresnel_whitefield_reco2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do a Fresnel whitefield reconstruction on processed frames 
+for a given data_exchange file</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">SXRI Pipeline modules</a><ul>
+<li><a class="reference internal" href="#id1">pipeline_component</a></li>
+<li><a class="reference internal" href="#module-pipeline.pre_processing">pre-processing</a></li>
+<li><a class="reference internal" href="#module-pipeline.fresnel_reconstruction">Fresnel Reconstruction</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sde_modules.html"
+                        title="previous chapter">SXR-I Data Exchange modules</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pipeline_modules.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sde_modules.html" title="SXR-I Data Exchange modules"
+             >previous</a> |</li>
+        <li><a href="index.html">Australian Synchrotron SXR-I Data Processing Pipeline 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Lenneke Jong.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
