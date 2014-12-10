@@ -139,4 +139,10 @@ class SXRIDataExchange(h5py.File):
         '''Helper method to easily get the zone plate distance out of the measurement group with 
         index measurement_number. Default is the first measurement group.'''
         return self.measurement_groups[measurement_number].get_zp_distance(self)
-        
+
+    def create_custom_group(self, name, **kwargs):
+        '''
+        Create general group using h5py definitions.
+        '''
+        new_general_group = self.create_group(name)
+        return Group(new_general_group)
