@@ -44,7 +44,7 @@ class Dataset(object):
             
     def get_attribute(self, name):
         return self.h5dataset.attrs.get(name)
-    
+
     def fill_dataset(self, data, location):
         '''
         fill dataset with defined shape at specific location [x,y,z] as defined by exchange.
