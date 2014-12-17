@@ -1,13 +1,14 @@
 import os
+
 from setuptools import setup, find_packages
 
 setup(
     name='sxri_pipeline',
     version='0.1',
     author = "Lenneke Jong",
-    author_email='pdviper@synchrotron.org.au',
+    author_email= 'lenneke.jong@synchrotron.org.au',
     description = "sxri_pipeline",
-    packages=find_packages(),
+    packages=['sxri_pipeline.pipeline','sxri_pipeline.sxri_data_exchange'],
     license='LICENSE',
     install_requires=[
 	    "numpy",
