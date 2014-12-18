@@ -2,7 +2,7 @@
 *.py~
 .project
 .pydevproject
-build/
-dist/
-docs/
-sxri_pipeline.egg-info/
+build
+dist
+docs
+sxri_pipeline.egg-info
