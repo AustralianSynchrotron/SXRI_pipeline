@@ -60,23 +60,15 @@ class DataAverager(PipelineComponent):
         ''' Process raw darkfields
         '''
         raw_darkfields = self.input_group.get_raw_darkfields()
-        if len(np.dstack(raw_darkfields).shape) == 3:
-            av = np.average(np.dstack(raw_darkfields), axis=2)
-            self.output_group.create_dataset(av, name='data_dark_averaged')
-        if len(np.dstack(raw_darkfields).shape) == 5:
-            av = np.average(np.dstack(raw_darkfields[0][0]), axis=2)
-            self.output_group.create_dataset(av, name='data_dark_averaged')
+        av = np.average(np.dstack(raw_darkfields), axis=2)
+        self.output_group.create_dataset(av, name='data_dark_averaged')
 
     def average_raw_whitefields(self, *args, **kwargs):
         ''' Process raw whitefields
         '''
         raw_whitefields = self.input_group.get_raw_whitefields()
-        if len(np.dstack(raw_whitefields).shape) == 3:
-            av = np.average(np.dstack(raw_whitefields), axis=2)
-            self.output_group.create_dataset(av, name='data_white_averaged')
-        if len(np.dstack(raw_whitefields).shape) == 5:
-            av = np.average(np.dstack(raw_whitefields[0][0]), axis=2)
-            self.output_group.create_dataset(av, name='data_white_averaged')
+        av = np.average(np.dstack(raw_whitefields), axis=2)
+        self.output_group.create_dataset(av, name='data_white_averaged')
 
     def average_raw_diffraction_images(self, *args, **kwargs):
         ''' average the exposures of diffraction images at each position
