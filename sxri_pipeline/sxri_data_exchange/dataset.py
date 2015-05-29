@@ -8,7 +8,9 @@ import numpy as np
 
 class Dataset(object):
     '''
-    classdocs
+    The Dataset class wraps a h5py.Dataset class and enforces some
+    conventions in the DataExchange specification as implemented by the SXR-I branch line at the Australian Synchrotron.
+    This class provides methods for getting the dataset as a numpy array.
     '''
 
 
@@ -22,7 +24,9 @@ class Dataset(object):
         else:
             pass 
     
-    def get_array(self): # need to fix this so that it returns actual numpy arrays, not h5py datasets
+    def get_array(self):
+        '''returns the h5pyDataset as a numpy array
+        '''
         return np.asarray(self.h5dataset,order='C')
     
     def get_single_value(self):
@@ -40,7 +44,13 @@ class Dataset(object):
             print "cannot add different shaped arrays"
             
     def add_attribute(self, name, value):
+        '''
+        Add an attribute to the dataset
+        '''
         self.h5dataset.attrs.create(name, value)
             
     def get_attribute(self, name):
+        '''
+        Fetch a named attribute
+        '''
         return self.h5dataset.attrs.get(name)

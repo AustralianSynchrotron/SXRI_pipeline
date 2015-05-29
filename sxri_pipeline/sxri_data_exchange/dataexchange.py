@@ -110,7 +110,7 @@ class SXRIDataExchange(h5py.File):
         return the exchange group with the given title
         '''
         for eg in self.exchange_groups:
-            if eg.get_title() == title:
+            if eg.get_title().value == title:
                 return eg
     
     def add_process(self, name, description):
@@ -125,6 +125,7 @@ class SXRIDataExchange(h5py.File):
         for key in self.keys():
             print key
             print self[key].name
+            print self[key].title
 
 
     def get_pixel_size(self,measurement_number=0):

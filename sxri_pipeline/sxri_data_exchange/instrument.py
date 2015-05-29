@@ -23,7 +23,7 @@ class Instrument(Group):
         
 class Detector(Group):
     '''
-    classdocs
+    Detector group class holds information about the pixel size and a reference to the Geometry class
     '''
 
 
@@ -49,7 +49,7 @@ class Detector(Group):
 
 class Geometry(Group):
     '''
-    classdocs
+    The Geometry group class
     '''
 
     def __init__(self, h5group, name=None, *args, **kwargs):
@@ -73,7 +73,7 @@ class Geometry(Group):
 
 class Monochromator(Group):
     '''
-    classdocs
+    Monochromator Group
     '''
 
     def __init__(self, h5group, name=None):

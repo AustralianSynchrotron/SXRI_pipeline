@@ -18,7 +18,14 @@ class MeasurementGroup(Group):
         Constructor
         '''
         super(MeasurementGroup, self).__init__(h5group, name, *args, **kwargs)
+        self.instrument = self.create_instrument_group()
+        self.sample = self.create_sample_group()
 
+    def create_instrument_group(self):
+        return Instrument(self._create_subgroup('instrument'))
+
+    def create_sample_group(self):
+        return Sample(self._create_subgroup('sample'))
 
     @property
     def instrument(self):
@@ -26,7 +33,7 @@ class MeasurementGroup(Group):
 
     @property
     def sample(self):
-        return Instrument(self.h5group['sample'])
+        return Sample(self.h5group['sample'])
 
     @property
     def wavelength(self):

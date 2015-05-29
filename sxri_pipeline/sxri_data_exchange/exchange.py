@@ -27,7 +27,8 @@ class ExchangeGroup(Group):
             self.h5group['title'].data = title
         
     def get_title(self):
-        return self.h5group['title']
+        dset = self.h5group['title']
+        return dset
     
 
 class RawExchange(ExchangeGroup):

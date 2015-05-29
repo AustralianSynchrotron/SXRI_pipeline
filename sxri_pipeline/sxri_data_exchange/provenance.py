@@ -88,7 +88,13 @@ class ProcessGroup(Group):
         if 'input_data' in self.h5group.keys():
             self.h5group['input_data'] = value
         else:
-            self.h5group.create_dataset('input_data', data=value, dtype=h5py.special_dtype(ref=h5py.Reference))
+            if isinstance(value,h5py.h5r.Reference):
+                self.h5group.create_dataset('input_data',  data=value, dtype=h5py.special_dtype(ref=h5py.Reference))
+            else:
+                print value
+                dset=self.h5group.create_dataset('input_data', (len(value),), dtype=h5py.special_dtype(ref=h5py.Reference))
+                for i,v in enumerate(value):
+                    dset[i]=v
         
     @property
     def output_data(self):
