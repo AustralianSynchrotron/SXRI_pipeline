@@ -11,6 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   introduction
    pipeline
    sxri_data_exchange
    about	      

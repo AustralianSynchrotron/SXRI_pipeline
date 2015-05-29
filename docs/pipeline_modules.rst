@@ -5,14 +5,14 @@ SXRI Pipeline modules
 *********************
 
 .. _pipeline_component:
-pipeline_component
+Pipeline Component
 ==================
 
 .. automodule:: pipeline.pipeline_component
    :members:
 
 .. _pre_processing:
-pre-processing
+Pre-processing
 ==============
 .. automodule:: pipeline.pre_processing
    :members:
