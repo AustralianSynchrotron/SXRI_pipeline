@@ -5,8 +5,8 @@ Created on 25/09/2013
 '''
 
 from sxri_data_exchange.dataexchange import SXRIDataExchange
-from pipeline.pre_processing import run_data_averager
-from pipeline.fresnel_reconstruction import fresnel_whitefield_reco2
+from pipeline.pre_processing import run_preprocessing
+from pipeline.fresnel_reconstruction import fresnel_whitefield_reco2, fresnel_ptyco_reco
 import logging
 import traceback
 import argparse
@@ -42,7 +42,7 @@ class Pipeline(object):
 
     def check_exchange_data(self):
         '''
-        check that there exists an exchange group which contains one dataset
+        Check that there exists an exchange group which contains one dataset
         called data and at least one of each data_dark and data_white.
         '''
 
@@ -60,20 +60,24 @@ class Pipeline(object):
 
     def check_geometry(self):
         '''
-        Checks that there are attributes that describe the geometry of the experiment.
+        Checks that there are attributes that describe the geometry of the experiment. Not yet implemented
         '''
         pass
 
     def run(self, *args, **kwargs):
-        ''' Run the pipeline
+        ''' Run the pipeline, This is the main method in the pipeline class where the separate pipeline modules
+            and put together. Some methods here have been commented out for ease with testing, so that steps don't need
+            to be rerun. The self.data_exchange argument for each of the methods is required
         '''
         try:
-            run_data_averager(self.data_exchange)
+            #self.setup_h5py()
+            #run_preprocessing(self.data_exchange)
             # next_input_group_name="/exchange_1"
-            # fresnel_whitefield_reco(self.data_exchange, next_input_group_name)
-            fresnel_whitefield_reco2(self.data_exchange)
+            #fresnel_whitefield_reco(self.data_exchange, next_input_group_name)
+            #fresnel_whitefield_reco2(self.data_exchange)
             #self.data_exchange.print_groups()
-            # fresnel_ptycho_reco(self.data_exchange)
+            fresnel_ptyco_reco(self.data_exchange)
+            self.data_exchange.print_groups()
         except Exception as ex:
             print ex.message
             tb = traceback.format_exc()
@@ -92,7 +96,7 @@ class Pipeline(object):
 
 def main():
     '''
-    Run the pipeline
+    Run the pipeline from the command line. pass a hdf as the argument
     '''
     parser = argparse.ArgumentParser(description="Run the SXRI processing pipeline.")
     parser.add_argument('filename', metavar='filename', help='full path of the hdf5 file')
