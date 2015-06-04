@@ -15,7 +15,7 @@ import re
 
 class SXRIDataExchange(h5py.File):
     '''
-    class that maps to the DataExchange format from aps to a h5 file
+    class that maps to the DataExchange format to a hdf5 file
     '''
     
     

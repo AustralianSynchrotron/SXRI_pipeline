@@ -15,11 +15,15 @@ This classes main purpose is to hold a reference to an SXRIDataExchange object w
 This class and the other classes in the sxri_data_exchange package provide methods to access the groups and datasets in the
 hdf5 file and ensures the conventions specified by the data exchange format are followed.
 
+A class which subclasses PipelineComponent makes several assumptions about the underlying hdf5 file it is operating on.
+Firstly it assumes that unless a specific name for a Group in the file is provided when the init method is called the
+Group most recently created will be used as the input group.
+
 The @process decorator forms an important part of the way the pipeline keeps track of data provenance. When an
 SXRIDataExchange object is instantiated it creates further objects that wrap around the various groups
 
-The fresnel_reconstruction module makes use of the Python bindings to the NADIA library
-https://github.com/AustralianSynchrotron/nadia-coecxs and utilises it's routines for
+The fresnel_reconstruction module makes use of the Python bindings to the `NADIA library
+ _<https://github.com/AustralianSynchrotron/nadia-coecxs>`_ and utilises it's routines for
 fresnel whitefield reconstruction and the full fresnel_reconstruction. However, the pipeline framework is designed so
 that different routines could be used for reconstruction steps. The only requirement is that the new pipeline components
 can handle any further manipulation of data from the numpy arrays returned by the sxri_data_exchange methods
